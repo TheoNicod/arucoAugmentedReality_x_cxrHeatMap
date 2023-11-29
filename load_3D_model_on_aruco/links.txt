@@ -1,0 +1,12 @@
+https://github.com/ajaymin28/Aruco_python
+https://www.youtube.com/watch?v=RNwTGPvuhPw
+
+
+
+other for more :
+https://www.youtube.com/watch?v=qqDXwKDr0vE 
+
+
+error gluInit() : 
+solution : install right version of https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyopengl
+	   then pip install "OpenGL...winXX.whl"
