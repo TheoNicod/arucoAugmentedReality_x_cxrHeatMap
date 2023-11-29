@@ -3,7 +3,7 @@ import pygame
 import math
 from OpenGL.GL import *
 from OpenGL.GLU import *
-
+from gradcamDetectionZone import detect_red_zone
 
 class OBJ:
     generate_on_init = True
@@ -107,15 +107,33 @@ class OBJ:
         glEnable(GL_BLEND) # active la transparence
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
 
+        X_MIN_3DCHEST = 0.5
+        X_MAX_3DCHEST = 2
+        Z_MIN_3DCHEST = 0.5
+        Z_MAX_3DCHEST = 3.3
+        RADIUS_MAX_SPHERE = 1.5
 
-        sphere_radius = 0.1 
-        sphere_color = [1.0, 0.0, 0.0]
-        glPushMatrix()
-        glTranslatef(1.0, 0.0, 2.0)  
-        glColor3f(*sphere_color)
-        self.draw_sphere(sphere_radius, 20, 20)
-        glPopMatrix()
-        glColor3f(1.0,1.0,1.0)
+
+        for zone in detect_red_zone("cam_test.jpg"): # zone[0] : x, zone[1] : y, zone[2] : intensity
+            print(zone)
+
+            sphere_radius = zone[2] * RADIUS_MAX_SPHERE 
+            sphere_color = [1.0, 0.0, 0.0]
+            glPushMatrix()
+            if zone[0] <= 0:
+                glTranslatef(zone[0] * X_MAX_3DCHEST - X_MIN_3DCHEST, 0.0, zone[1] * Z_MAX_3DCHEST + Z_MIN_3DCHEST)
+                print("x3D = ", zone[0] * X_MAX_3DCHEST - X_MIN_3DCHEST," z3D = ",zone[1] * Z_MAX_3DCHEST + Z_MIN_3DCHEST)
+            else:
+                glTranslatef(zone[0] * X_MAX_3DCHEST + X_MIN_3DCHEST, 0.0, zone[1] * Z_MAX_3DCHEST + Z_MIN_3DCHEST)
+                print("x3D = ", zone[0] * X_MAX_3DCHEST + X_MIN_3DCHEST," z3D = ",zone[1] * Z_MAX_3DCHEST + Z_MIN_3DCHEST)
+            glColor3f(*sphere_color)
+            self.draw_sphere(sphere_radius, 20, 20) # ??????????? 20, 20 ?????
+            glPopMatrix()
+            glColor3f(1.0,1.0,1.0)
+
+
+        # -2 <= x <= 2
+        # 0.5 <= z <= 3
         
 
 

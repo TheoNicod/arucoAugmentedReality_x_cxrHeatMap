@@ -33,8 +33,8 @@ def init_gl():
 ####################### FUNCTION TO CHECK WHETHER ANY ARUCO MARKER HAS BEEN DETECTED IN THE IMAGE OR NOT #######################
 
 def check_markers(img):
-    ar_module=aruco.Dictionary_get(aruco.DICT_5X5_250)                      #TO SELECT AN ARUCO DICTIONARY
-    detect=aruco.DetectorParameters_create()                                #INITIALIZING THE DETECTOR
+    ar_module=aruco.getPredefinedDictionary(aruco.DICT_5X5_250)                      #TO SELECT AN ARUCO DICTIONARY
+    detect=aruco.DetectorParameters()                                #INITIALIZING THE DETECTOR
     mc,mid,_=aruco.detectMarkers(img,ar_module,parameters=detect)           #TO GET ID AND CORNER POINTS OF DETECTED ARUCO MARKERS
     return mc                                                               #RETURNING CORNER POINTS AS A MEANS TO CHECK WHETHER ANY MARKER IS DETECTED OR NOT
 
@@ -43,8 +43,8 @@ def check_markers(img):
 ###################### THE LIST CONTAINS ARUCO ID,COORDINATE OF ITS CENTRE,ROTATION VECTOR OF ITS CENTRE,TRANSLATION VECTOR OF ITS CENTRE,CORNER POINTS OF MARKER ##############
 
 def detect_markers(img,mtx,dist):
-    ar_module=aruco.Dictionary_get(aruco.DICT_5X5_250)                       #TO SELECT AN ARUCO DICTIONARY
-    detect=aruco.DetectorParameters_create()                                 #INITIALIZING THE DETECTOR
+    ar_module=aruco.getPredefinedDictionary(aruco.DICT_5X5_250)                       #TO SELECT AN ARUCO DICTIONARY
+    detect=aruco.DetectorParameters()                                 #INITIALIZING THE DETECTOR
     mc,mid,_=aruco.detectMarkers(img,ar_module,parameters=detect)            #TO GET ID AND CORNER POINTS OF DETECTED ARUCO MARKERS
     aruco_lst=[]                                                             #LIST TO ADD DETECTED ARUCO MARKERS' PROPERTIES
 
